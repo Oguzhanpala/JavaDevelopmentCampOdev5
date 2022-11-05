@@ -61,12 +61,6 @@ public class LanguageManager implements LanguageService {
 	@Override
 	public void delete(int id) {
 		languageRepository.deleteById(id);
-	//	for (Language language : languageRepository.findAll()) {
-	//		if (language.getId() == deleteLanguageRequest.getId()) {
-	//			
-	//		}
-//
-	//	}
 
 	}
 
