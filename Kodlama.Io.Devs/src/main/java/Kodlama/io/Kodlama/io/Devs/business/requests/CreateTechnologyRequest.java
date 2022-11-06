@@ -1,6 +1,5 @@
 package Kodlama.io.Kodlama.io.Devs.business.requests;
 
-import Kodlama.io.Kodlama.io.Devs.entities.concretes.Language;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTechnologyRequest {
+	private int languageId;
 	private String name;
-	private Language language;
 }

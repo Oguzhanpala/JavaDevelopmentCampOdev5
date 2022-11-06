@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetAllTechnologyResponse {
 	private int id;
+	private int language_id;
 	private String name;
-	private int languageId;
+	private String languageName;
 	}

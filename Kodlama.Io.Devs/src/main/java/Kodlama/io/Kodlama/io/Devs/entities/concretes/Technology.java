@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "technology")
+@Table(name = "technologies")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,6 +31,6 @@ public class Technology {
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name = "language_id")
+	@JoinColumn(name = "languageId")
 	private Language language;
 }
