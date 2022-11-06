@@ -58,7 +58,6 @@ public class TechnologyManager implements TechnologyService {
 		for (Technology technology : technologyRepository.findAll()) {
 			if (technology.getId() == id) {
 				technology.setName(updateTechnologyRequest.getName());
-			//	technology.setId(updateTechnologyReques);
 				technology.setLanguage(language);
 				technologyRepository.save(technology);
 			}
@@ -66,9 +65,12 @@ public class TechnologyManager implements TechnologyService {
 	}
 
 	@Override
-	public void delete(int id) {
-
+	public void delete(int id) throws Exception {
+		if (!technologyRepository.existsById(id)) {
+			throw new Exception("İd bulunamadı");
+		}
 		technologyRepository.deleteById(id);
+	
 	}
 
 }

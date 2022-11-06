@@ -12,6 +12,6 @@ public interface TechnologyService {
 	List<GetAllTechnologyResponse> getAll();
 	void add(CreateTechnologyRequest createTechnologyRequest);
 	void update(UpdateTechnologyRequest updateTechnologyRequest,int id);
-	void delete(int id);
+	void delete(int id) throws Exception;
 
 }

@@ -19,32 +19,33 @@ import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllTechnologyResponse;
 @RestController
 @RequestMapping("/api/technologies")
 public class TechnologiesController {
-	
+
 	private TechnologyService technologyService;
 
 	public TechnologiesController(TechnologyService technologyService) {
-		
+
 		this.technologyService = technologyService;
 	}
-	
+
 	@GetMapping("/getall")
-	List<GetAllTechnologyResponse> getAll(){
+	List<GetAllTechnologyResponse> getAll() {
 		return technologyService.getAll();
 	}
-	
+
 	@PostMapping("/add")
 	public void add(@RequestBody CreateTechnologyRequest createTechnologyRequest) {
 		technologyService.add(createTechnologyRequest);
 	}
-	
+
 	@PutMapping("/{id}")
 
-	public void update(@RequestBody UpdateTechnologyRequest updateTechnologyRequest,@PathVariable int id) {
+	public void update(@RequestBody UpdateTechnologyRequest updateTechnologyRequest, @PathVariable int id) {
 		technologyService.update(updateTechnologyRequest, id);
 	}
+
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable int id) {
+	public void delete(@PathVariable int id) throws Exception {
 		technologyService.delete(id);
 	}
-	
+
 }

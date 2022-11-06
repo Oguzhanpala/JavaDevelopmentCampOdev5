@@ -9,8 +9,8 @@ import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllLanguageResponse;
 public interface LanguageService {
 	
 	List<GetAllLanguageResponse> getAll();
-	void add(CreateLanguageRequest createLanguageRequest);
+	void add(CreateLanguageRequest createLanguageRequest) throws Exception;
 	void update(UpdateLanguageRequest updateLanguageRequest,int id);
-	void delete(int id);
+	void delete(int id) throws Exception;
 
 }

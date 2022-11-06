@@ -39,29 +39,48 @@ public class LanguageManager implements LanguageService {
 	}
 
 	@Override
-	public void add(CreateLanguageRequest createLanguageRequest) {
+	public void add(CreateLanguageRequest createLanguageRequest) throws Exception {
+
 		Language language = new Language();
 		language.setName(createLanguageRequest.getName());
-		languageRepository.save(language);
 
+		if (isNameExist(language)) {
+			throw new Exception("Girilen isim kayıtlı yada değer girilmemiş");
+		}
+
+		languageRepository.save(language);
 	}
 
 	@Override
-	public void update(UpdateLanguageRequest updateLanguageRequest, int id) {
+	public void update(UpdateLanguageRequest updateLanguageRequest, int id){
+
 		for (Language language : languageRepository.findAll()) {
 			if (language.getId() == id) {
 				language.setName(updateLanguageRequest.getName());
 				languageRepository.save(language);
 			}
-
 		}
 
 	}
 
 	@Override
-	public void delete(int id) {
-		languageRepository.deleteById(id);
+	public void delete(int id) throws Exception {
 
+		if (!languageRepository.existsById(id)) {
+
+			throw new Exception("Geçersiz id");
+		}
+
+		languageRepository.deleteById(id);
+	}
+
+	public boolean isNameExist(Language language) {
+		for (Language lang : languageRepository.findAll()) {
+			if (language.getName().equals(lang.getName()) || language.getName().isBlank()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

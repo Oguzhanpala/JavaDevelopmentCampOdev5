@@ -33,7 +33,7 @@ public class LanguagesController {
 	}
 
 	@PostMapping("/add")
-	void add(@RequestBody CreateLanguageRequest createLanguageRequest) {
+	void add(@RequestBody CreateLanguageRequest createLanguageRequest) throws Exception {
 
 		languageService.add(createLanguageRequest);
 
@@ -45,7 +45,7 @@ public class LanguagesController {
 		
 	}
 	@DeleteMapping("/{id}")
-	void delete(@PathVariable int id) {
+	void delete(@PathVariable int id) throws Exception {
 			
 		languageService.delete(id);
 	}
