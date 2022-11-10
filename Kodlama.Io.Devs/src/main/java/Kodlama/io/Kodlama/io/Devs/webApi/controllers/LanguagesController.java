@@ -15,6 +15,7 @@ import Kodlama.io.Kodlama.io.Devs.business.abstracts.LanguageService;
 import Kodlama.io.Kodlama.io.Devs.business.requests.CreateLanguageRequest;
 import Kodlama.io.Kodlama.io.Devs.business.requests.UpdateLanguageRequest;
 import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllLanguageResponse;
+import Kodlama.io.Kodlama.io.Devs.business.responses.GetByIdLanguageResponse;
 
 @RestController
 @RequestMapping("api/languages")
@@ -31,6 +32,10 @@ public class LanguagesController {
 
 		return languageService.getAll();
 	}
+	@GetMapping
+	public GetByIdLanguageResponse getById(int id) throws Exception {
+		return languageService.getById(id);
+	}
 
 	@PostMapping("/add")
 	void add(@RequestBody CreateLanguageRequest createLanguageRequest) throws Exception {
@@ -39,7 +44,7 @@ public class LanguagesController {
 
 	}
 	@PutMapping("/{id}")
-	void update(@RequestBody UpdateLanguageRequest updateLanguageRequest, @PathVariable int id) {
+	void update(@RequestBody UpdateLanguageRequest updateLanguageRequest, @PathVariable int id) throws Exception {
 		
 		languageService.update(updateLanguageRequest, id);
 		
