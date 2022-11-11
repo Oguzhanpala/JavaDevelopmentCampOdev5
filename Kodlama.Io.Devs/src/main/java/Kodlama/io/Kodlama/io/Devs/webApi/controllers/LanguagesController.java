@@ -32,7 +32,7 @@ public class LanguagesController {
 
 		return languageService.getAll();
 	}
-	@GetMapping
+	@GetMapping("/{id}")
 	public GetByIdLanguageResponse getById(int id) throws Exception {
 		return languageService.getById(id);
 	}

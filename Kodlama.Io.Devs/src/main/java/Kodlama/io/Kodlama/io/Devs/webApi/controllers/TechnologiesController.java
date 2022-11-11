@@ -15,6 +15,7 @@ import Kodlama.io.Kodlama.io.Devs.business.abstracts.TechnologyService;
 import Kodlama.io.Kodlama.io.Devs.business.requests.CreateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.requests.UpdateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllTechnologyResponse;
+import Kodlama.io.Kodlama.io.Devs.business.responses.GetByIdTechnologyResponse;
 
 @RestController
 @RequestMapping("/api/technologies")
@@ -32,14 +33,19 @@ public class TechnologiesController {
 		return technologyService.getAll();
 	}
 
+	@GetMapping("/{id}")
+	public GetByIdTechnologyResponse getById(int id) throws Exception {
+		return technologyService.getById(id);
+	}
+	
 	@PostMapping("/add")
-	public void add(@RequestBody CreateTechnologyRequest createTechnologyRequest) {
+	public void add(@RequestBody CreateTechnologyRequest createTechnologyRequest) throws Exception {
 		technologyService.add(createTechnologyRequest);
 	}
 
 	@PutMapping("/{id}")
 
-	public void update(@RequestBody UpdateTechnologyRequest updateTechnologyRequest, @PathVariable int id) {
+	public void update(@RequestBody UpdateTechnologyRequest updateTechnologyRequest, @PathVariable int id) throws Exception {
 		technologyService.update(updateTechnologyRequest, id);
 	}
 

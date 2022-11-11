@@ -10,6 +10,7 @@ import Kodlama.io.Kodlama.io.Devs.business.abstracts.TechnologyService;
 import Kodlama.io.Kodlama.io.Devs.business.requests.CreateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.requests.UpdateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllTechnologyResponse;
+import Kodlama.io.Kodlama.io.Devs.business.responses.GetByIdTechnologyResponse;
 import Kodlama.io.Kodlama.io.Devs.dataAccess.abstracts.LanguageRepository;
 import Kodlama.io.Kodlama.io.Devs.dataAccess.abstracts.TechnologyRepository;
 import Kodlama.io.Kodlama.io.Devs.entities.concretes.Language;
@@ -44,7 +45,24 @@ public class TechnologyManager implements TechnologyService {
 	}
 
 	@Override
-	public void add(CreateTechnologyRequest createTechnologyRequest) {
+	public GetByIdTechnologyResponse getById(int id) throws Exception {
+		
+		if(!isIdExist(id)) { throw new Exception("Geçersiz id"); }
+		
+		Technology technology = technologyRepository.getReferenceById(id);
+		GetByIdTechnologyResponse byIdTechnologyResponse = new GetByIdTechnologyResponse();
+		byIdTechnologyResponse.setLanguage_id(technology.getLanguage().getId());
+		byIdTechnologyResponse.setLanguageName(technology.getLanguage().getName());
+		byIdTechnologyResponse.setName(technology.getName());
+		return byIdTechnologyResponse;
+	}
+	
+	@Override
+	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception {
+		
+		if(isNameEmpty(createTechnologyRequest.getName())) { throw new Exception("İsim boş olamaz tekrar deneyin"); }
+		if(isNameExist(createTechnologyRequest.getName())) { throw new Exception("Girilen isim kayıtlı"); } 
+		
 		Technology technology = new Technology();
 		Language language = languageRepository.findById(createTechnologyRequest.getLanguageId()).get();
 		technology.setName(createTechnologyRequest.getName());
@@ -53,7 +71,19 @@ public class TechnologyManager implements TechnologyService {
 	}
 
 	@Override
-	public void update(UpdateTechnologyRequest updateTechnologyRequest, int id) {
+	public void update(UpdateTechnologyRequest updateTechnologyRequest, int id) throws Exception {
+		
+		if(!isIdExist(id)) {
+			throw new Exception("Geçersiz id");
+		}
+		if(isNameEmpty(updateTechnologyRequest.getName())) {
+			throw new Exception("İsim boş olamaz tekrar deneyin");
+		}
+		if(isNameExist(updateTechnologyRequest.getName())) {
+			throw new Exception("Girilen isim kayıtlı");
+		}
+		
+		
 		Language language = languageRepository.findById(updateTechnologyRequest.getLanguageId()).get();
 		for (Technology technology : technologyRepository.findAll()) {
 			if (technology.getId() == id) {
@@ -61,16 +91,39 @@ public class TechnologyManager implements TechnologyService {
 				technology.setLanguage(language);
 				technologyRepository.save(technology);
 			}
+			
 		}
 	}
 
 	@Override
 	public void delete(int id) throws Exception {
-		if (!technologyRepository.existsById(id)) {
-			throw new Exception("İd bulunamadı");
+		if (!isIdExist(id)) {
+			throw new Exception("Geçersiz id");
 		}
 		technologyRepository.deleteById(id);
 	
+	}
+
+	private boolean isNameExist(String name) {
+		for (Technology technology : technologyRepository.findAll()) {
+			if (technology.getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isNameEmpty(String name) {
+		if(name.isBlank())
+			return true;
+		return false;
+	}
+	
+	private boolean isIdExist(int id) {
+		if (technologyRepository.existsById(id)) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -1,16 +1,17 @@
 package Kodlama.io.Kodlama.io.Devs.business.responses;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class GetAllTechnologyResponse {
-	private int id;
+@NoArgsConstructor
+public class GetByIdTechnologyResponse {
 	private int language_id;
 	private String languageName;
 	private String name;
-	
-	}
+
+}
