@@ -6,7 +6,6 @@ import Kodlama.io.Kodlama.io.Devs.business.requests.CreateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.requests.UpdateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.responses.GetAllTechnologyResponse;
 import Kodlama.io.Kodlama.io.Devs.business.responses.GetByIdTechnologyResponse;
-import Kodlama.io.Kodlama.io.Devs.entities.concretes.Language;
 
 public interface TechnologyService {
 	
