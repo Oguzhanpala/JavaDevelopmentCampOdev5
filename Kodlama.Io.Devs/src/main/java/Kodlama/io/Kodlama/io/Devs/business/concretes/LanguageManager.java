@@ -1,5 +1,6 @@
 package Kodlama.io.Kodlama.io.Devs.business.concretes;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,17 +80,16 @@ public class LanguageManager implements LanguageService {
 	@Override
 	public void delete(int id) throws Exception {
 
-		if (!isIdExist(id)) {
-
-			throw new Exception("Geçersiz id");
-		}
+		if (!isIdExist(id)) { throw new Exception("Geçersiz id"); }
 
 		languageRepository.deleteById(id);
 	}
 
+	
+	
 	private boolean isNameExist(String name) {
-		for (Language lang : languageRepository.findAll()) {
-			if (lang.getName().equals(name)) {
+		for (Language language : languageRepository.findAll()) {
+			if (language.getName().equals(name)) {
 				return true;
 			}
 		}
@@ -110,5 +110,8 @@ public class LanguageManager implements LanguageService {
 		return false;
 	}
 
+	public Language findById(int id) {
+		return languageRepository.getReferenceById(id);
+	}
 	
 }

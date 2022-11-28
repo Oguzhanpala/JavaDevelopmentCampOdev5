@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Kodlama.io.Kodlama.io.Devs.business.abstracts.LanguageService;
 import Kodlama.io.Kodlama.io.Devs.business.abstracts.TechnologyService;
 import Kodlama.io.Kodlama.io.Devs.business.requests.CreateTechnologyRequest;
 import Kodlama.io.Kodlama.io.Devs.business.requests.UpdateTechnologyRequest;
@@ -20,12 +21,14 @@ import Kodlama.io.Kodlama.io.Devs.entities.concretes.Technology;
 public class TechnologyManager implements TechnologyService {
 
 	private TechnologyRepository technologyRepository;
-	private LanguageRepository languageRepository;
-
-	@Autowired
-	public TechnologyManager(TechnologyRepository technologyRepository, LanguageRepository languageRepository) {
+	
+	private LanguageService languageService;
+	
+	
+	
+	public TechnologyManager(TechnologyRepository technologyRepository, LanguageService languageService) {
 		this.technologyRepository = technologyRepository;
-		this.languageRepository = languageRepository;
+		this.languageService = languageService;
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public class TechnologyManager implements TechnologyService {
 		if(isNameExist(createTechnologyRequest.getName())) { throw new Exception("Girilen isim kayıtlı"); } 
 		
 		Technology technology = new Technology();
-		Language language = languageRepository.findById(createTechnologyRequest.getLanguageId()).get();
+		Language language = languageService.findById(createTechnologyRequest.getLanguageId());
 		technology.setName(createTechnologyRequest.getName());
 		technology.setLanguage(language);
 		technologyRepository.save(technology);
@@ -84,9 +87,10 @@ public class TechnologyManager implements TechnologyService {
 		}
 		
 		
-		Language language = languageRepository.findById(updateTechnologyRequest.getLanguageId()).get();
+		
+		Language language = languageService.findById(updateTechnologyRequest.getLanguageId());
 		for (Technology technology : technologyRepository.findAll()) {
-			if (technology.getId() == id) {
+		if (technology.getId() == id) {
 				technology.setName(updateTechnologyRequest.getName());
 				technology.setLanguage(language);
 				technologyRepository.save(technology);
